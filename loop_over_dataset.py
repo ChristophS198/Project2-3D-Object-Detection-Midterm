@@ -59,7 +59,7 @@ show_only_frames = [50, 51] # show only frames in interval for debugging
 data_fullpath = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'dataset', data_filename) # adjustable path in case this script is called from another working directory
 model = 'darknet'    # options are 'fpn_resnet' or 'darkent'
 sequence = "1"
-if model == 'fpn_resnet':   # Added since my folder containing fpn_resnet results was named 'resnet' without prefix 'fpn_'
+if model == 'fpn_resnet':   # Christoph: Added since workspace folder containing fpn_resnet results was named 'resnet' without prefix 'fpn_'
     results_fullpath = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'results/fpn-resnet/results_sequence_' + sequence + '_resnet')
 else:
     results_fullpath = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'results/' + model + '/results_sequence_' + sequence + '_' + model)
