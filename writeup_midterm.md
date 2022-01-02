@@ -1,6 +1,6 @@
 
 # Sensor Fusion Midterm
-## Display 6 examples of vehicles with varying degrees of visibility in the point-cloud
+## Display 10 examples of vehicles with varying degrees of visibility in the point-cloud
 
 The goal of this section is to analyse point clouds, mainly with respect to the reflectivity of vehicles.  
 The first point cloud shows the starting image of sequence 3
@@ -17,11 +17,19 @@ The following image shows how the point cloud is affected by occlusion, that is,
 Windshield reflectivity:  
 The next point cloud shows that the the vehicle body reflectivity is noticeably larger than windshield reflectivity.   
 ![dataset analysis](./media/NoWindshieldReflection.png)   
+Vehicle body reflectivity:  
+The screenshot below shows the reflectivity of the body if detected by a sideview.  
+![dataset analysis](./media/Vehicle_side_reflectivity.png)   
+LiDAR limits in ego vehicle vicinity:  
+As vehicles are getting into the close range one can see the FoV limits as shown in the point cloud below.  
+![dataset analysis](./media/Vehicle_in_vicinity.png)   
+Rearview:  
+![dataset analysis](./media/Backview.png)   
+Point cloud at intersection:  
+![dataset analysis](./media/Car_around_corner.png)   
 Reduced reflectivity at greater distances:   
 The last screenshot serves to explain the effect of distance on the point cloud. As can be seen the point density is much smaller for objects with a larger distance to the LiDAR sensor.  
-![dataset analysis](./media/DistantCar_Occlusion.png) 
-
-
+![dataset analysis](./media/DistantCar_Occlusion.png)   
 **Overall Conclusions:**  
 * Vehicle body, including front and rear bumpers, has best reflectivity, whereas windshields and windows do not do not provide a good reflectivity
 * One gets a good impression on the strengths and weaknesses of LiDAR: On the one hand LiDAR is very good at detecting objects even at large distances, but on the other hand LiDAR is only able to detect free space and unable to "see" the lanes, which is only possible with by detecting colors 
