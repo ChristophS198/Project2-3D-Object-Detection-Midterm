@@ -62,7 +62,7 @@ def load_configs_model(model_name='darknet', configs=None):
         ####### ID_S3_EX1-3 START #######     
         #######
         configs.model_path = os.path.join(parent_path, 'tools', 'objdet_models', 'resnet')
-        configs.pretrained_filename = os.path.join(configs.model_path, 'pretrained', 'fpn_resnet_18_epoch300.pth')
+        configs.pretrained_filename = os.path.join(configs.model_path, 'pretrained', 'fpn_resnet_18_epoch_300.pth')
         configs.arch = 'fpn_resnet'
         configs.batch_size = 4
         configs.K = 50
