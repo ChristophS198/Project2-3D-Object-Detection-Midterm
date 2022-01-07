@@ -14,27 +14,26 @@ Update:
 **x** = **x** + **K** * y  
 **P** = (**I** - **K** * **H**) * **P** 
 
-Afterwards we loaded precomputed results from the Waymo Open Dataset and calculated the RMS between ground truth and EKF results as shown in the following image:
-![Tracking RMS](./media/RMS_plot.png)   
+Afterwards we loaded precomputed results from the Waymo Open Dataset and calculated the RMSE between ground truth and EKF results as shown in the following image:
+![Tracking RMSE](./media/RMS_EKF_Task1.png)   
 
 
 ## 2. Track Management
-This part comprises implementing all modules of the track management.  
-* 1. Initializing new tracks based on measurement values: That is, the x,y,z coordinates of a new track are set to the measurement values and the velocity values of the state are set to 0 since we can not measure them with LiDAR (at least not based on one image). In order to compensate for the wrong velocity initialization we use large start values for the velocity covariances in P. The position part of P is initialized based on the measurement covariance we obtain from the LiDAR sensor.   
-* 2. Implementing a logic to decrease the score for unassigned tracks, i.e., tracks for which no suitable measurement could be found. This part also includes a automatic deletion of track with low score or high covariance **P**. 
-
+This part comprises implementing all modules of the track management:  
+1. Initializing new tracks based on measurement values: That is, the x,y,z coordinates of a new track are set to the measurement values and the velocity values of the state are set to 0 since we can not measure them with LiDAR (at least not based on one image). In order to compensate for the wrong velocity initialization we use large start values for the velocity covariances in P. The position part of P is initialized based on the measurement covariance we obtain from the LiDAR sensor.   
+2. Implementing a logic to decrease the score for unassigned tracks, i.e., tracks for which no suitable measurement could be found. This part also includes a automatic deletion of track with low score or high covariance **P**. The latter is the main deletion criteria for true positives, as explained in the section 'Difficulties'. 
+3. Implement a logic for increasing the track score and setting the tracks state based on score thresholds. As a first step we only distinguish the states: ['initialized', 'tentative', 'confirmed'] 
 
 Resulting RMSE plot with track management for input sequence 2 and frames [65 - 100]:  
-![Tracking RMS](./media/RMSE_after_task2.png)   
-
-
-
-
-
+![TrackManagement RMSE](./media/RMSE_TrackManagement_Task2.png)   
 
 
 ## 3. Data Association
-
+The third part contains the data association problem of multi-target tracking. That is, we implement an association module which creates measurement - track pairs based on a specified metric (here single nearest neighbor SNN). As a result each measurement should be assigned to at most one measurement and remaining, unassigend, measurement or tracks are stored in separate arrays.  
+In order to create the associations **gating** is used to speed up the process.   
+During the association process we create a matrix containing the Mahalanobis distances between all track - measurement pairs. With gating we exclude unlikely combinations by setting the corresponding matrix elements to infinity. Afterwards we iteratively assign one track to one measurement by searching for the minimum element in the matrix and pairing the corresonding track - measurement. As a consequence the row and column of the minimum element gets deleted and we also remove them from the unassigend lists. The loop terminates when the matrix is empty or only consists of infinity elements.  
+The following plot shows the RMSE with implemented data association:  
+![Track Management RMSE](./media/RMSE_DataAssociation_Task3.png)   
 
 
 ## 4. Camera - LiDAR Sensor Fusion

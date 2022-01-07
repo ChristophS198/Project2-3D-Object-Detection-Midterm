@@ -67,14 +67,21 @@ class Association:
         # - return this track and measurement
         ############
 
-        # the following only works for at most one track and one measurement
-        update_track = 0
-        update_meas = 0
-        
-        # remove from list
-        self.unassigned_tracks.remove(update_track) 
+        # check if matrix only contains inf entries
+        if np.min(self.association_matrix) == np.inf:
+            return np.nan, np.nan
+
+        # get column and row index of min element
+        track_idx, meas_idx = np.unravel_index(np.argmin(self.association_matrix, axis=None), self.association_matrix.shape)
+        update_track = self.unassigned_tracks[track_idx]
+        update_meas = self.unassigned_meas[meas_idx]
+
+        # remove track and meas from list 
+        self.unassigned_tracks.remove(update_track)
         self.unassigned_meas.remove(update_meas)
-        self.association_matrix = np.matrix([])
+        # delete column and row in association matrix
+        self.association_matrix = np.delete(self.association_matrix, track_idx, 0)
+        self.association_matrix = np.delete(self.association_matrix, meas_idx, 1)
             
         ############
         # END student code
