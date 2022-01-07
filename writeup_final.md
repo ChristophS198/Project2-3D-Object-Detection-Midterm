@@ -37,6 +37,11 @@ The following plot shows the RMSE with implemented data association:
 
 
 ## 4. Camera - LiDAR Sensor Fusion
+The goal of this task is to include the camera measurements to improve the state and covariance updates.  
+At first a function is implemented to check whether a track is in the sensors FoV. The result is used for the track score update, so we can decide whether a track is in the sensors FoV and therefore should get a score in-/decrease or if the track is not in the sensors FoV and therefore remains untouched.  
+Next we implement the non-linear projection h(x), which transforms vehicle coordinates to the 2-D image coordinates of the camera sensor.   
+The following plot shows the RMSE after including the camera measurements into the tracking algorithm:  
+![Track Management RMSE](./media/RMSE_CameraLidarFusion_Task4.png)   
 
 
 

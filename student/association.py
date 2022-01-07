@@ -38,7 +38,7 @@ class Association:
         # - update list of unassigned measurements and unassigned tracks
         ############
         
-        # the following only works for at most one track and one measurement
+        # initialize matrix and unassigned tracks/measurements list
         N = len(track_list) # N tracks
         M = len(meas_list) # M measurements
         self.association_matrix = np.inf * np.ones((N,M)) # reset matrix
